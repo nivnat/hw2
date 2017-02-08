@@ -25,6 +25,7 @@ using namespace std;
         Face& operator=(const Face& rhs) {
             cells=rhs.cells;
             faceLen=rhs.faceLen;
+            return *this;
         }
 
         // ACCESSORS / SETTERS

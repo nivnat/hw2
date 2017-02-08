@@ -16,15 +16,20 @@ Cube::Cube(int len) : cubeLen(len),
 }
 
 Cube Cube::makeMove(cubeMoves theMove) {
+    const int leftCol = 0;
+    const int topRow = 0;
+    const int rightCol = cubeLen - 1;
+    const int bottomRow = cubeLen - 1;
+
     Cube result(*this);
     switch (theMove) {
         case LeftDown: // front left column goes down
             // shift down
             for (int yy = 0; yy < cubeLen; yy++) {
-                result.faces[FRONT].put(0, yy, faces[TOP].get(0, yy));
-                result.faces[TOP].put(0, yy, faces[BACK].get(cubeLen - 1, cubeLen - 1 - yy));
-                result.faces[BACK].put(cubeLen - 1, yy, faces[BOTTOM].get(0, cubeLen - 1 - yy)); // the back is reversed
-                result.faces[BOTTOM].put(0, yy, faces[FRONT].get(0, yy));
+                result.faces[FRONT].put(leftCol, yy, faces[TOP].get(leftCol, yy));
+                result.faces[TOP].put(leftCol, yy, faces[BACK].get(rightCol, cubeLen - 1 - yy));
+                result.faces[BACK].put(rightCol, yy, faces[BOTTOM].get(leftCol, cubeLen - 1 - yy)); // the back is reversed
+                result.faces[BOTTOM].put(leftCol, yy, faces[FRONT].get(leftCol, yy));
             }
             // rotate side -- see also http://stackoverflow.com/questions/42519/how-do-you-rotate-a-two-dimensional-array
             for (int xx = 0; xx < cubeLen; xx++)
@@ -32,32 +37,69 @@ Cube Cube::makeMove(cubeMoves theMove) {
                     result.faces[LEFT].put(cubeLen - 1 - yy, xx, faces[LEFT].get(xx, yy));
 
             break;
-        case LeftUp: // front left column goes up
-            // shift up
-            for (int yy=0; yy<cubeLen; yy++) {
-                result.faces[FRONT].put(0, yy, faces[BOTTOM].get(0, yy));
-                result.faces[BOTTOM].put(0, yy, faces[BACK].get(cubeLen - 1, cubeLen - 1 - yy));
-                result.faces[BACK].put(cubeLen - 1, yy, faces[TOP].get(0, cubeLen - 1 - yy)); // the back is reversed
-                result.faces[TOP].put(0, yy, faces[FRONT].get(0, yy));
+        case RightDown: // front right column goes down
+            // shift down
+            for (int yy = 0; yy < cubeLen; yy++) {
+                result.faces[FRONT].put(rightCol, yy, faces[TOP].get(rightCol, yy));
+                result.faces[TOP].put(rightCol, yy, faces[BACK].get(leftCol, cubeLen - 1 - yy));
+                result.faces[BACK].put(leftCol, yy, faces[BOTTOM].get(rightCol, cubeLen - 1 - yy)); // the back is reversed
+                result.faces[BOTTOM].put(rightCol, yy, faces[FRONT].get(rightCol, yy));
             }
             // rotate side
-            for (int xx=0; xx<cubeLen; xx++)
-                for (int yy=0; yy<cubeLen; yy++)
-                    result.faces[LEFT].put(xx,yy,faces[LEFT].get(cubeLen-1-yy,xx));
+            for (int xx = 0; xx < cubeLen; xx++)
+                for (int yy = 0; yy < cubeLen; yy++)
+                    result.faces[RIGHT].put(cubeLen - 1 - yy, xx, faces[RIGHT].get(xx, yy));
             break;
         case TopLeft: // top row goes left
             // shift left
             for (int xx=0; xx<cubeLen; xx++) {
-                result.faces[FRONT].put(xx,0, faces[RIGHT].get(xx,0));
-                result.faces[RIGHT].put(xx,0, faces[BACK].get(xx,0));
-                result.faces[BACK].put(xx,0, faces[LEFT].get(xx,0)); // the back is reversed
-                result.faces[LEFT].put(xx,0, faces[FRONT].get(xx,0));
+                result.faces[FRONT].put(xx,topRow, faces[RIGHT].get(xx,topRow));
+                result.faces[RIGHT].put(xx,topRow, faces[BACK].get(xx,topRow));
+                result.faces[BACK].put(xx,topRow, faces[LEFT].get(xx,topRow)); // the back is reversed
+                result.faces[LEFT].put(xx,topRow, faces[FRONT].get(xx,topRow));
             }
 
             // rotate top
             for (int xx = 0; xx < cubeLen; xx++)
                 for (int yy = 0; yy < cubeLen; yy++)
                     result.faces[TOP].put(cubeLen - 1 - yy, xx, faces[TOP].get(xx, yy));
+            break;
+        case BottomLeft: // bottom row goes left
+            // shift left
+            for (int xx=0; xx<cubeLen; xx++) {
+                result.faces[FRONT].put(xx,bottomRow, faces[RIGHT].get(xx,bottomRow));
+                result.faces[RIGHT].put(xx,bottomRow, faces[BACK].get(xx,bottomRow));
+                result.faces[BACK].put(xx,bottomRow, faces[LEFT].get(xx,bottomRow)); // the back is reversed
+                result.faces[LEFT].put(xx,bottomRow, faces[FRONT].get(xx,bottomRow));
+            }
+
+            // rotate bottom
+            for (int xx = 0; xx < cubeLen; xx++)
+                for (int yy = 0; yy < cubeLen; yy++)
+                    result.faces[BOTTOM].put(cubeLen - 1 - yy, xx, faces[BOTTOM].get(xx, yy));
+            break;
+        case LeftUp: // three downs make an up
+            result=makeMove(LeftDown);
+            result=result.makeMove(LeftDown);
+            result=result.makeMove(LeftDown);
+            break;
+        case RightUp: // three downs make an up
+            result=makeMove(RightDown);
+            result=result.makeMove(RightDown);
+            result=result.makeMove(RightDown);
+            break;
+        case TopRight: // three lefts make a right
+            result=makeMove(TopLeft);
+            result=result.makeMove(TopLeft);
+            result=result.makeMove(TopLeft);
+            break;
+        case BottomRight: // three lefts make a right
+            result=makeMove(BottomLeft);
+            result=result.makeMove(BottomLeft);
+            result=result.makeMove(BottomLeft);
+            break;
+        default:
+            cout << "ERR:  I don't know how to do that yet ... sorry!" << endl;
     }
     return result;
 }
