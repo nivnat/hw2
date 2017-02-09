@@ -4,7 +4,6 @@
 
 #include "Cube.h"
 
-
 Cube::Cube(int len) : cubeLen(len),
                       faces{Face(cubeLen, Cell::GREEN),  // the six faces of the cube
                              Face(cubeLen, Cell::ORANGE),
@@ -13,6 +12,15 @@ Cube::Cube(int len) : cubeLen(len),
                              Face(cubeLen, Cell::YELLOW),
                              Face(cubeLen, Cell::BLUE),
                              Face(cubeLen, Cell::BLANK)} {
+}
+
+bool Cube::isUnscrambled() {
+    for (int theFace=0; theFace<faceNames::FACE_COUNT; theFace++) {
+        for (int xx=0; xx<cubeLen; xx++)
+            for (int yy=0; yy<cubeLen; yy++)
+                if (faces[theFace].get(xx,yy)!=faces[theFace].get(0,0))
+                            return false;}
+    return true;
 }
 
 Cube Cube::makeMove(cubeMoves theMove) {
@@ -78,28 +86,8 @@ Cube Cube::makeMove(cubeMoves theMove) {
                 for (int yy = 0; yy < cubeLen; yy++)
                     result.faces[BOTTOM].put(cubeLen - 1 - yy, xx, faces[BOTTOM].get(xx, yy));
             break;
-        case LeftUp: // three downs make an up
-            result=makeMove(LeftDown);
-            result=result.makeMove(LeftDown);
-            result=result.makeMove(LeftDown);
-            break;
-        case RightUp: // three downs make an up
-            result=makeMove(RightDown);
-            result=result.makeMove(RightDown);
-            result=result.makeMove(RightDown);
-            break;
-        case TopRight: // three lefts make a right
-            result=makeMove(TopLeft);
-            result=result.makeMove(TopLeft);
-            result=result.makeMove(TopLeft);
-            break;
-        case BottomRight: // three lefts make a right
-            result=makeMove(BottomLeft);
-            result=result.makeMove(BottomLeft);
-            result=result.makeMove(BottomLeft);
-            break;
         default:
-            cout << "ERR:  I don't know how to do that yet ... sorry!" << endl;
+            throw out_of_range("ERR:  I don't know how to do that yet ... sorry!");
     }
     return result;
 }

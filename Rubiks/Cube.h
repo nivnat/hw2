@@ -18,7 +18,7 @@ using namespace std;
 enum faceNames {
     FRONT, LEFT, RIGHT, TOP, BOTTOM, BACK,
     BLANK,       // a black face
-    FACE_COUNT // a placeholder that maintains the number of useful faces
+    FACE_COUNT // a placeholder that maintains the number of faces
 };
 
 /**
@@ -30,7 +30,8 @@ enum cubeMoves {
     TopLeft, TopRight,
     BottomLeft, BottomRight,
     OverLeft, OverRight,
-    OverFarLeft, OverFarRight
+    OverFarLeft, OverFarRight,
+    MOVE_COUNT // a placeholder that maintains the number of moves
 };
 
 /**
@@ -57,6 +58,14 @@ public:
     Cube makeMove(cubeMoves theMove);
 
     // Informational
+
+    /**
+     *
+     * @return true iff the cube is in its original form (i.e. each face has
+     * only cells of one color.
+     */
+    bool isUnscrambled();
+
     /**
      * @return The linear length of the cube.
      */
