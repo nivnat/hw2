@@ -72,10 +72,18 @@ public:
     int getLen() const { return cubeLen; }
 
     /**
-     * @param theFace the desired face to return
+     * @param theFace the name of the face to return
      * @return a specific face of the cube
      */
     const Face &getFace(faceNames theFace) const { return faces[theFace]; }
+
+    /**
+     * Sets the face of a cube to the given fase
+     * Note:  no checking is done that this is still a valid Rubk cube!
+     * @param theFace the name of the face to change
+     * @param newFace the new version of the face
+     */
+    void setFace(faceNames theFace, Face newFace) { faces[theFace]=newFace; }
 
     /**
      * Copy assignment operator

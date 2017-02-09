@@ -34,57 +34,57 @@ Cube Cube::makeMove(cubeMoves theMove) {
         case LeftDown: // front left column goes down
             // shift down
             for (int yy = 0; yy < cubeLen; yy++) {
-                result.faces[FRONT].put(leftCol, yy, faces[TOP].get(leftCol, yy));
-                result.faces[TOP].put(leftCol, yy, faces[BACK].get(rightCol, cubeLen - 1 - yy));
-                result.faces[BACK].put(rightCol, yy, faces[BOTTOM].get(leftCol, cubeLen - 1 - yy)); // the back is reversed
-                result.faces[BOTTOM].put(leftCol, yy, faces[FRONT].get(leftCol, yy));
+                result.faces[FRONT].set(leftCol, yy, faces[TOP].get(leftCol, yy));
+                result.faces[TOP].set(leftCol, yy, faces[BACK].get(rightCol, cubeLen - 1 - yy));
+                result.faces[BACK].set(rightCol, yy, faces[BOTTOM].get(leftCol, cubeLen - 1 - yy)); // the back is reversed
+                result.faces[BOTTOM].set(leftCol, yy, faces[FRONT].get(leftCol, yy));
             }
             // rotate side -- see also http://stackoverflow.com/questions/42519/how-do-you-rotate-a-two-dimensional-array
             for (int xx = 0; xx < cubeLen; xx++)
                 for (int yy = 0; yy < cubeLen; yy++)
-                    result.faces[LEFT].put(cubeLen - 1 - yy, xx, faces[LEFT].get(xx, yy));
+                    result.faces[LEFT].set(cubeLen - 1 - yy, xx, faces[LEFT].get(xx, yy));
 
             break;
         case RightDown: // front right column goes down
             // shift down
             for (int yy = 0; yy < cubeLen; yy++) {
-                result.faces[FRONT].put(rightCol, yy, faces[TOP].get(rightCol, yy));
-                result.faces[TOP].put(rightCol, yy, faces[BACK].get(leftCol, cubeLen - 1 - yy));
-                result.faces[BACK].put(leftCol, yy, faces[BOTTOM].get(rightCol, cubeLen - 1 - yy)); // the back is reversed
-                result.faces[BOTTOM].put(rightCol, yy, faces[FRONT].get(rightCol, yy));
+                result.faces[FRONT].set(rightCol, yy, faces[TOP].get(rightCol, yy));
+                result.faces[TOP].set(rightCol, yy, faces[BACK].get(leftCol, cubeLen - 1 - yy));
+                result.faces[BACK].set(leftCol, yy, faces[BOTTOM].get(rightCol, cubeLen - 1 - yy)); // the back is reversed
+                result.faces[BOTTOM].set(rightCol, yy, faces[FRONT].get(rightCol, yy));
             }
             // rotate side
             for (int xx = 0; xx < cubeLen; xx++)
                 for (int yy = 0; yy < cubeLen; yy++)
-                    result.faces[RIGHT].put(cubeLen - 1 - yy, xx, faces[RIGHT].get(xx, yy));
+                    result.faces[RIGHT].set(cubeLen - 1 - yy, xx, faces[RIGHT].get(xx, yy));
             break;
         case TopLeft: // top row goes left
             // shift left
             for (int xx=0; xx<cubeLen; xx++) {
-                result.faces[FRONT].put(xx,topRow, faces[RIGHT].get(xx,topRow));
-                result.faces[RIGHT].put(xx,topRow, faces[BACK].get(xx,topRow));
-                result.faces[BACK].put(xx,topRow, faces[LEFT].get(xx,topRow)); // the back is reversed
-                result.faces[LEFT].put(xx,topRow, faces[FRONT].get(xx,topRow));
+                result.faces[FRONT].set(xx, topRow, faces[RIGHT].get(xx, topRow));
+                result.faces[RIGHT].set(xx, topRow, faces[BACK].get(xx, topRow));
+                result.faces[BACK].set(xx, topRow, faces[LEFT].get(xx, topRow)); // the back is reversed
+                result.faces[LEFT].set(xx, topRow, faces[FRONT].get(xx, topRow));
             }
 
             // rotate top
             for (int xx = 0; xx < cubeLen; xx++)
                 for (int yy = 0; yy < cubeLen; yy++)
-                    result.faces[TOP].put(cubeLen - 1 - yy, xx, faces[TOP].get(xx, yy));
+                    result.faces[TOP].set(cubeLen - 1 - yy, xx, faces[TOP].get(xx, yy));
             break;
         case BottomLeft: // bottom row goes left
             // shift left
             for (int xx=0; xx<cubeLen; xx++) {
-                result.faces[FRONT].put(xx,bottomRow, faces[RIGHT].get(xx,bottomRow));
-                result.faces[RIGHT].put(xx,bottomRow, faces[BACK].get(xx,bottomRow));
-                result.faces[BACK].put(xx,bottomRow, faces[LEFT].get(xx,bottomRow)); // the back is reversed
-                result.faces[LEFT].put(xx,bottomRow, faces[FRONT].get(xx,bottomRow));
+                result.faces[FRONT].set(xx, bottomRow, faces[RIGHT].get(xx, bottomRow));
+                result.faces[RIGHT].set(xx, bottomRow, faces[BACK].get(xx, bottomRow));
+                result.faces[BACK].set(xx, bottomRow, faces[LEFT].get(xx, bottomRow)); // the back is reversed
+                result.faces[LEFT].set(xx, bottomRow, faces[FRONT].get(xx, bottomRow));
             }
 
             // rotate bottom
             for (int xx = 0; xx < cubeLen; xx++)
                 for (int yy = 0; yy < cubeLen; yy++)
-                    result.faces[BOTTOM].put(cubeLen - 1 - yy, xx, faces[BOTTOM].get(xx, yy));
+                    result.faces[BOTTOM].set(cubeLen - 1 - yy, xx, faces[BOTTOM].get(xx, yy));
             break;
         default:
             throw out_of_range("ERR:  I don't know how to do that yet ... sorry!");

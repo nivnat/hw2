@@ -43,7 +43,7 @@ using namespace std;
          * @param yy  y-coordinate of the cell
          * @param newCell The new contents to put into the cell
          */
-        void put(int xx, int yy, Cell newCell) { cells[xx][yy]=newCell; }
+        void set(int xx, int yy, Cell newCell) { cells[xx][yy]=newCell; }
 
         /**
          * Accessor for faceLen
