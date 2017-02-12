@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include "Cube.h"
 
+extern enum faceNames;
+
 Cube::Cube(int len) : cubeLen(len) {
     faces.clear(); // the six faces of the cube
     faces.push_back(Face(cubeLen, Cell::GREEN));

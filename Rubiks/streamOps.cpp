@@ -7,6 +7,8 @@
 #include <ostream>
 #include "Cube.h"
 
+extern enum faceNames;
+
 /**
  * Concatenates 4 faces to the output stream
  */
