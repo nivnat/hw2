@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include "Cube.h"
 
-extern enum faceNames;
-
 Cube::Cube(int len) : cubeLen(len) {
     faces.clear(); // the six faces of the cube
     faces.push_back(Face(cubeLen, Cell::GREEN));
@@ -19,7 +17,7 @@ Cube::Cube(int len) : cubeLen(len) {
 }
 
 bool Cube::isUnscrambled() {
-    for (int theFace=0; theFace<faceNames::FACE_COUNT; theFace++) {
+    for (int theFace=0; theFace<FACE_COUNT; theFace++) {
         for (int xx=0; xx<cubeLen; xx++)
             for (int yy=0; yy<cubeLen; yy++)
                 if (faces[theFace].get(xx,yy)!=faces[theFace].get(0,0))

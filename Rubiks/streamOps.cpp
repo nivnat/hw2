@@ -7,16 +7,14 @@
 #include <ostream>
 #include "Cube.h"
 
-extern enum faceNames;
-
 /**
  * Concatenates 4 faces to the output stream
  */
 void  concatFaces(std::ostream& os, const Cube &cube,
                  const faceNames& face1,
-                 const faceNames& face2=faceNames::BLANK,
-                 const faceNames& face3=faceNames::BLANK,
-                 const faceNames& face4=faceNames::BLANK) {
+                 const faceNames& face2=BLANK,
+                 const faceNames& face3=BLANK,
+                 const faceNames& face4=BLANK) {
 
     for (int xx=0; xx<cube.getLen(); xx++)
         os << cube.getFace(face1).printYY(xx) << " "
@@ -28,9 +26,9 @@ void  concatFaces(std::ostream& os, const Cube &cube,
 
 std::ostream& operator<<(std::ostream& os, const Cube &cube) {
     // output the cube
-    concatFaces(os, cube, faceNames::BLANK, faceNames::TOP); os << endl;
-    concatFaces(os, cube, faceNames::LEFT, faceNames::FRONT, faceNames::RIGHT, faceNames::BACK); os << endl;
-    concatFaces(os, cube, faceNames::BLANK, faceNames::BOTTOM); os << endl;
+    concatFaces(os, cube, BLANK, TOP); os << endl;
+    concatFaces(os, cube, LEFT, FRONT, RIGHT, BACK); os << endl;
+    concatFaces(os, cube, BLANK, BOTTOM); os << endl;
 
     return os;
 }
