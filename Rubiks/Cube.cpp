@@ -2,16 +2,18 @@
 // Created by Ari on 2/4/17.
 //
 
+#include <stdexcept>
 #include "Cube.h"
 
-Cube::Cube(int len) : cubeLen(len),
-                      faces{Face(cubeLen, Cell::GREEN),  // the six faces of the cube
-                             Face(cubeLen, Cell::ORANGE),
-                             Face(cubeLen, Cell::RED),
-                             Face(cubeLen, Cell::WHITE),
-                             Face(cubeLen, Cell::YELLOW),
-                             Face(cubeLen, Cell::BLUE),
-                             Face(cubeLen, Cell::BLANK)} {
+Cube::Cube(int len) : cubeLen(len) {
+    faces.clear(); // the six faces of the cube
+    faces.push_back(Face(cubeLen, Cell::GREEN));
+    faces.push_back(Face(cubeLen, Cell::ORANGE));
+    faces.push_back(Face(cubeLen, Cell::RED));
+    faces.push_back(Face(cubeLen, Cell::WHITE));
+    faces.push_back(Face(cubeLen, Cell::YELLOW));
+    faces.push_back(Face(cubeLen, Cell::BLUE));
+    faces.push_back(Face(cubeLen, Cell::BLANK));
 }
 
 bool Cube::isUnscrambled() {

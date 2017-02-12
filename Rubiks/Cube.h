@@ -103,7 +103,7 @@ private:
     int cubeLen; // linear dimension of one side
 
     /** the faces of the cube */
-    Face faces[FACE_COUNT];
+    vector<Face> faces;
 
 
 };
