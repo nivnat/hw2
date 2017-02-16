@@ -55,7 +55,7 @@ public:
      * @param theMove the move to make
      * @return a new cube representing the given move from the current cube.
      */
-    Cube makeMove(cubeMoves theMove);
+    Cube makeMove(cubeMoves theMove) const;
 
     // Informational
 
@@ -64,7 +64,7 @@ public:
      * @return true iff the cube is in its original form (i.e. each face has
      * only cells of one color.
      */
-    bool isUnscrambled();
+    bool isUnscrambled() const;
 
     /**
      * @return The linear length of the cube.

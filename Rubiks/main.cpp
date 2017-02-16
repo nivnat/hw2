@@ -4,6 +4,6 @@
 int main() {
     Cube test(3);                 // create a cube
     test=test.makeMove(LeftDown); // make a move
-    cout << test << endl;         // print out the result
+    cout << test << "is " << (test.isUnscrambled()?"unscrambled":"scrambled") << endl;         // print out the result
     return 0;
 }

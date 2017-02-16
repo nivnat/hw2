@@ -16,7 +16,7 @@ Cube::Cube(int len) : cubeLen(len) {
     faces.push_back(Face(cubeLen, Cell::BLANK));
 }
 
-bool Cube::isUnscrambled() {
+bool Cube::isUnscrambled() const {
     for (int theFace=0; theFace<FACE_COUNT; theFace++) {
         for (int xx=0; xx<cubeLen; xx++)
             for (int yy=0; yy<cubeLen; yy++)
@@ -25,7 +25,7 @@ bool Cube::isUnscrambled() {
     return true;
 }
 
-Cube Cube::makeMove(cubeMoves theMove) {
+Cube Cube::makeMove(cubeMoves theMove) const {
     const int leftCol = 0;
     const int topRow = 0;
     const int rightCol = cubeLen - 1;
